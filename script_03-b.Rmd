@@ -13,6 +13,7 @@ library(stringr)
 library(gt)
 library(readxl)
 library(janitor)
+install.packages("gt")
 knitr::opts_chunk$set(echo = FALSE)
 
 # Note the changes that I made in the code from Tuesday. Try to understand them.
@@ -48,7 +49,20 @@ sep_new <-
 
 **Prompt:** Which classes had the biggest increases and decreases in undergraduate enrollments between September 1 and September 22? Obviously, you will need to join the two datasets which I have created for you above.
 
+```{r}
+left_enrollment = left_join(by = c("id", "title", "name", "department"), x = sep_old, y = sep_new)
+
+left_enrollment <- left_enrollment %>%
+  mutate(enrollment_difference = u_grad.x - u_grad.y) %>%
+  arrange(enrollment_difference)
+
+View(left_enrollment)
+```
+
+
 a) Make a table using **gt** which shows the five courses with the biggest increase. Use the [How to make a table](https://davidkane9.github.io/PPBDS/tools.html#how-to-make-a-table) section of *The Primer*.
+
+
 
 b) Make a table using **gt** which shows the five courses with the biggest decrease.
 
